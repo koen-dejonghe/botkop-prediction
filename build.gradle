@@ -1,0 +1,41 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = 'botkop.prediction.Application'
+
+// tag::repositories[]
+repositories { 
+    mavenLocal()
+    mavenCentral() 
+}
+// end::repositories[]
+
+// tag::jar[]
+jar {
+    baseName = 'botkop-prediction'
+    version =  '0.1.0'
+}
+// end::jar[]
+
+// tag::dependencies[]
+dependencies {
+    compile "joda-time:joda-time:2.2"
+	compile "org.springframework:spring-context:4.1.2.RELEASE"
+	compile 'org.slf4j:slf4j-api:1.7.7'
+	compile 'ch.qos.logback:logback-classic:1.1.2'
+	compile 'com.google.apis:google-api-services-prediction:v1.6-rev52-1.19.0'
+	compile 'com.google.http-client:google-http-client-jackson2:1.19.0'
+	compile 'com.google.oauth-client:google-oauth-client-jetty:1.19.0'
+	compile 'com.google.api-client:google-api-client:1.19.0'
+	compile 'org.springframework.boot:spring-boot-starter:1.1.9.RELEASE'
+	compile 'net.sf.opencsv:opencsv:2.3'
+	compile 'org.apache.commons:commons-lang3:3.3.2'
+}
+// end::dependencies[]
+
+// tag::wrapper[]
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
+// end::wrapper[]
