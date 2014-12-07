@@ -51,9 +51,7 @@ public class PredictionService {
 		CSVReader reader = new CSVReader(new FileReader(csvFileName));
 		try {
 			String[] nextLine;
-			while ((nextLine = reader.readNext()) != null) {
-				// nextLine[] is an array of values from the line
-				
+			while ((nextLine = reader.readNext()) != null) {				
 				ArrayList<Object> csvInstance = new ArrayList<Object>();
 				for (String token : nextLine){
 					if (NumberUtils.isNumber(token)) {
