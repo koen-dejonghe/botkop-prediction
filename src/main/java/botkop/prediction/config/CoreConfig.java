@@ -44,6 +44,9 @@ public class CoreConfig {
 	@Value("${model.id}")
 	private String modelId;
 
+	@Value("${model.type}")
+	private String modelType;
+
 	@Value("${storage.data.location}")
 	private String storageDataLocation;
 
@@ -108,7 +111,7 @@ public class CoreConfig {
 	@Bean 
 	PredictionService predicitionService() throws GeneralSecurityException, IOException{
 		L.info("instantiating prediction service");
-		return new PredictionService(prediction(), projectId, modelId);
+		return new PredictionService(projectId, modelId, modelType);
 	}
 
 }

@@ -28,13 +28,30 @@ public class Predictor implements CommandLineRunner {
 		Output output = predictionService.predict(input);
 		return output.getOutputLabel();
 	}
+	
+	private void predictFromFile(String fname) throws IOException{		
+		List<Output> output = predictionService.predictFile(fname); 
+		for(Output o : output) {
+			// System.out.println(o.getOutputLabel());
+			System.out.println(o.toPrettyString());
+		}
+	}
 
 	@Override
 	public void run(String... args) throws Exception {
 
-		PropertySource ps = new SimpleCommandLinePropertySource(args);
+		PropertySource<?> ps = new SimpleCommandLinePropertySource(args);
+		
+		if (ps.containsProperty("sayHello")) {
+			String s = sayHello();
+			L.info(s);		
+		}
+		
+		if (ps.containsProperty("predict") && ps.containsProperty("file-name")) {
+			predictFromFile(ps.getProperty("file-name").toString());
+		}
+		
+		
 
-		String s = sayHello();
-		L.info(s);
 	}
 }
