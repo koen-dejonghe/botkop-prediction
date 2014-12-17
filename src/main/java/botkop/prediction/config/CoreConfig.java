@@ -111,7 +111,32 @@ public class CoreConfig {
 	@Bean 
 	PredictionService predicitionService() throws GeneralSecurityException, IOException{
 		L.info("instantiating prediction service");
-		return new PredictionService(projectId, modelId, modelType);
+		return new PredictionService();
+	}
+
+	@Bean
+	public String applicationName() {
+		return applicationName;
+	}
+
+	@Bean
+	public String projectId() {
+		return projectId;
+	}
+
+	@Bean
+	public String modelId() {
+		return modelId;
+	}
+
+	@Bean
+	public String modelType() {
+		return modelType;
+	}
+
+	@Bean
+	public String storageDataLocation() {
+		return storageDataLocation;
 	}
 
 }

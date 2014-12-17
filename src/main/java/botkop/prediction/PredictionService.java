@@ -16,6 +16,7 @@ import com.google.api.client.json.JsonString;
 import com.google.api.client.util.Charsets;
 import com.google.api.client.util.Key;
 import com.google.api.services.prediction.Prediction;
+import com.google.api.services.prediction.Prediction.Trainedmodels.Get;
 import com.google.api.services.prediction.model.Input;
 import com.google.api.services.prediction.model.Input.InputInput;
 import com.google.api.services.prediction.model.Output;
@@ -23,32 +24,37 @@ import com.google.common.io.Closeables;
 
 public class PredictionService {
 
+	public static final String TYPE_CLASSIFICATION = "classification";
+
+	public static final String TYPE_REGRESSION = "regression";
+
 	@Autowired
 	private Prediction prediction;
 
 	@Autowired
 	private JsonFactory jsonFactory;
 
+	@Autowired
 	private String projectId;
 	
+	@Autowired
 	private String modelId;
 
+	@Autowired
 	private String modelType;
 
-	public PredictionService(String projectId, String modelId,
-			String modelType) {
-		this.projectId = projectId;
-		this.modelId = modelId;
-		this.modelType = modelType;
+	public Get get() throws IOException{
+		Get model = prediction.trainedmodels().get(projectId, modelId);
+		return model;
 	}
 
 	public Output predict(Input input) throws IOException {
 
-		if ("regression".equals(modelType)) {
+		if (TYPE_REGRESSION.equals(modelType)) {
 			return predictRegression(input);
 		}
 
-		if ("classification".equals(modelType)) {
+		if (TYPE_CLASSIFICATION.equals(modelType)) {
 			return predictClassification(input);
 		}
 

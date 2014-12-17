@@ -21,6 +21,9 @@ public class Predictor implements CommandLineRunner {
 
 	@Autowired
 	private PredictionService predictionService;
+	
+	@Autowired
+	private String modelType;
 
 	private String sayHello() throws IOException {
 		List<Object> input = Collections
@@ -32,8 +35,12 @@ public class Predictor implements CommandLineRunner {
 	private void predictFromFile(String fname) throws IOException{		
 		List<Output> output = predictionService.predictFile(fname); 
 		for(Output o : output) {
-			// System.out.println(o.getOutputLabel());
-			System.out.println(o.toPrettyString());
+			if (PredictionService.TYPE_REGRESSION.equals(modelType)) {
+				System.out.println(o.getOutputValue());
+			}
+			else {
+				System.out.println(o.getOutputLabel());
+			}
 		}
 	}
 
